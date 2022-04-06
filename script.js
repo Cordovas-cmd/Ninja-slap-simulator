@@ -21,6 +21,9 @@ canvas.height = 576
 //draw shapes onto screen. big rectangle.
 c.fillRect(0, 0, canvas.width, canvas.height)
 
+
+// CREATE GRAVITY
+const gravity = 0.2
 // Using OOP we create each "pl;ayer"
 class Sprite {
 // Need a constructor method ( a function within a class)
@@ -43,15 +46,18 @@ c.fillStyle = 'red'
 // Method inside class when stuff is moving around.
 update() {
     this.draw()
+
     // Select y and add 10 over time for each frame we loop over.
     // for position on the y axis we add our velocity.
     this.position.y += this.velocity.y
-
+    
     // = to the bottom of a rectanlgle. If the bottom of a rectangle plus our sprites velocity is > or = to the bottom of canvas set velocity to 0. (stops it from falling past canvas)
     if (this.position.y + this.height +this.velocity.y >= canvas.height) {
         this.velocity.y = 0
-    }
+        // Adds the value of gravity over time as long as it's in the air. and as long is it isn't at the bottom of the canvas.
+    } else this.velocity.y += gravity
 }
+   
 }
 
 const player = new Sprite({
@@ -63,7 +69,7 @@ const player = new Sprite({
 // 2d velocity to move left right up and down. player not moving by default.
 velocity: {
     x: 0,
-    y:10
+    y:0
 }
 })
 
