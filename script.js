@@ -47,6 +47,14 @@ c.fillStyle = 'red'
 update() {
     this.draw()
 
+
+    //UPDATE HOW WE MOVE ON THE X-------------------------------------------------------------------------------
+this.position.x += this.velocity.x
+
+
+
+
+    // UPDATE HOW WE MOVE ON THE Y AXIS----------------------------------------------------------------------------
     // Select y and add 10 over time for each frame we loop over.
     // for position on the y axis we add our velocity.
     this.position.y += this.velocity.y
@@ -95,6 +103,15 @@ enemy.draw()
 
 console.log(player)
 
+
+const keys = {
+    a: {
+        pressed : false
+    },
+    d: {
+        pressed : false
+    },
+}
 // Infinite loop that goes on and on forever until we tell it to stop.
 function animate() {
     window.requestAnimationFrame(animate)
@@ -105,6 +122,50 @@ function animate() {
     // update() is calling draw() so we don't need to anymore.
     player.update()
     enemy.update()
-    // console.log('go')
-}
+
+/* Set velocity here so that there is no lag time or discrepincies when we 
+lift one key while pressing the other*/
+if(keys.a.pressed) {
+    player.velocity.x = -1
+} else if (keys.d.pressed) {
+    player.velocity.x = 1
+} }
 animate()
+
+
+
+// Add an event listener to the object to log any keypress.
+window.addEventListener('keydown', (event) => {
+    //Add a switch case statement depending on the key that's pressed.---------
+    switch(event.key) {
+        // If the key D is being pressed then call this code.
+        case 'd':
+            //moving one pixel for every frame we loop over when D is pressed.
+            player.velocity.x = 1
+            break
+        case 'a':
+            //moving one pixel for every frame we loop over when A is pressed.
+            player.velocity.x = -1
+            break
+
+    }
+console.log(event.key);
+})
+
+// Add an event listener to the object to log any key up.
+window.addEventListener('keyup', (event) => {
+    //Add a switch case statement depending on the key that's pressed.
+    switch(event.key) {
+        // If the key D is lifted then call this code.
+        case 'd':
+            //STop moving whenever we stop holding down D.
+            player.velocity.x = 0
+            break
+        case 'a':
+            //STop moving whenever we stop holding down A.
+            player.velocity.x = 0
+            break
+
+    }
+console.log(event.key);
+})
