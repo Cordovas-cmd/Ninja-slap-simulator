@@ -112,6 +112,8 @@ const keys = {
         pressed : false
     },
 }
+
+let lastKey
 // Infinite loop that goes on and on forever until we tell it to stop.
 function animate() {
     window.requestAnimationFrame(animate)
@@ -125,11 +127,14 @@ function animate() {
 
 /* Set velocity here so that there is no lag time or discrepincies when we 
 lift one key while pressing the other*/
-if(keys.a.pressed) {
+player.velocity.x = 0;
+if(keys.a.pressed && lastKey === 'a') {
     player.velocity.x = -1
-} else if (keys.d.pressed) {
+} else if (keys.d.pressed && lastKey === 'd') {
     player.velocity.x = 1
-} }
+} 
+
+ }
 animate()
 
 
@@ -138,14 +143,15 @@ animate()
 window.addEventListener('keydown', (event) => {
     //Add a switch case statement depending on the key that's pressed.---------
     switch(event.key) {
-        // If the key D is being pressed then call this code.
         case 'd':
             //moving one pixel for every frame we loop over when D is pressed.
-            player.velocity.x = 1
+            keys.d.pressed = true
+            lastKey = 'd'
             break
         case 'a':
             //moving one pixel for every frame we loop over when A is pressed.
-            player.velocity.x = -1
+            keys.a.pressed = true
+            lastKey = 'a'
             break
 
     }
@@ -156,14 +162,13 @@ console.log(event.key);
 window.addEventListener('keyup', (event) => {
     //Add a switch case statement depending on the key that's pressed.
     switch(event.key) {
-        // If the key D is lifted then call this code.
         case 'd':
             //STop moving whenever we stop holding down D.
-            player.velocity.x = 0
+            keys.d.pressed = false
             break
         case 'a':
             //STop moving whenever we stop holding down A.
-            player.velocity.x = 0
+            keys.a.pressed = false
             break
 
     }
