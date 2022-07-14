@@ -30,18 +30,30 @@ class Sprite {
 
 // Can't pass through velocity first and can't pass position second. if we turn
 // Into an object like so, it doesn't matter what order or if it was called.
-constructor({position, velocity}) {
+// set color as an arguement.
+constructor({position, velocity, color}) {
     // Whenever you do game dev. you always want to put a position property on almost eveyr object
     this.position = position
     this.velocity = velocity
     this.height = 150
     this.lastKey
+    // adding an attack box property.
+    this.attackBox = {
+        position: this.position ,
+        width: 100,
+        height: 50,
+    }
+    this.color = color
 }
 
 //can be called whatever, but for easy reference we call draw
 draw() {
-c.fillStyle = 'red'
+c.fillStyle = this.color
     c.fillRect(this.position.x, this.position.y, 50, this.height)
+
+    //this is where attack box is drawn
+    c.fillStyle = 'purple'
+    c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
 }
 
 // Method inside class when stuff is moving around.
@@ -79,7 +91,8 @@ const player = new Sprite({
 velocity: {
     x: 0,
     y:0
-}
+},
+color: 'orange'
 })
 
 //calback to the draw function
@@ -96,7 +109,9 @@ const enemy = new Sprite({
 velocity: {
     x: 0,
     y:0
-}
+},
+//set enemy color
+color: 'blue'
 })
 
 enemy.draw()
@@ -123,7 +138,7 @@ const keys = {
     }
 }
 
-let lastKey
+// let lastKey
 // Infinite loop that goes on and on forever until we tell it to stop.
 function animate() {
     window.requestAnimationFrame(animate)
@@ -141,17 +156,17 @@ player.velocity.x = 0;
 enemy.velocity.x = 0;
 
 // Player Movement
-if(keys.a.pressed && lastKey === 'a') {
-    player.velocity.x = -1
-} else if (keys.d.pressed && lastKey === 'd') {
-    player.velocity.x = 1
+if(keys.a.pressed && player.lastKey === 'a') {
+    player.velocity.x = -5
+} else if (keys.d.pressed && player.lastKey === 'd') {
+    player.velocity.x = 5
 } 
 
 // Enemy Movement.
 if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
-    enemy.velocity.x = -1
+    enemy.velocity.x = -5
 } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
-    enemy.velocity.x = 1
+    enemy.velocity.x = 5
 } 
 
  }
@@ -167,15 +182,15 @@ window.addEventListener('keydown', (event) => {
         case 'd':
             //moving one pixel for every frame we loop over when D is pressed.
             keys.d.pressed = true
-            lastKey = 'd'
+            player.lastKey = 'd'
             break
         case 'a':
             //moving one pixel for every frame we loop over when A is pressed.
             keys.a.pressed = true
-            lastKey = 'a'
+            player.lastKey = 'a'
             break
             case 'w':
-                player.velocity.y =-10
+                player.velocity.y =-12
                 
                 break
 
@@ -192,7 +207,7 @@ window.addEventListener('keydown', (event) => {
             break
         case 'ArrowUp':
             //moving one pixel for every frame we loop over when A is pressed.
-            enemy.velocity.y =-10
+            enemy.velocity.y =-12
             break
 
     }
