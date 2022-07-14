@@ -51,6 +51,7 @@ constructor({position, velocity, color, offset}) {
     }
     this.color = color
     this.isAttacking
+    this.health = 100
 }
 
 //can be called whatever, but for easy reference we call draw
@@ -220,6 +221,8 @@ if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
     player.isAttacking
  ) {
     player.isAttacking = false
+    enemy.health -= 20
+    document.querySelector('#player2Hp').style.width = enemy.health + '%'
     console.log("hit")
  }
  // immediately after detecting hit set it back to false so it only hits once.
@@ -232,6 +235,8 @@ if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
     ) {
     // immediately after detecting hit set it back to false so it only hits once.                   
     enemy.isAttacking = false
+    player.health -= 20
+    document.querySelector('#player1Hp').style.width = player.health + '%'
     console.log("enemy attack successful")
 }
 }
