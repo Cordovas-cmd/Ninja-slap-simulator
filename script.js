@@ -31,7 +31,7 @@ class Sprite {
 // Can't pass through velocity first and can't pass position second. if we turn
 // Into an object like so, it doesn't matter what order or if it was called.
 // set color as an arguement.
-constructor({position, velocity, color}) {
+constructor({position, velocity, color, offset}) {
     // Whenever you do game dev. you always want to put a position property on almost eveyr object
     this.position = position
     this.velocity = velocity
@@ -41,12 +41,13 @@ constructor({position, velocity, color}) {
     // adding an attack box property.
     this.attackBox = {
         // position is an object with x and y properties but they don't update automatically.
-        position: {
-x: this.position.x,
-y: this.position.y
+    position: {
+        x: this.position.x,
+        y: this.position.y
         },
+        offset,
         width: 100,
-        height: 50,
+        height: 50
     }
     this.color = color
     this.isAttacking
@@ -74,13 +75,11 @@ c.fillStyle = this.color
 update() {
     this.draw()
     // update positions for attackbox whenever we change frames.
-    this.attackBox.position.x = this.position.x
+    this.attackBox.position.x = this.position.x + this.attackBox.offset.x
     this.attackBox.position.y = this.position.y
-
 
     //MOVE ON THE X-------------------------------------------------------------------------------
 this.position.x += this.velocity.x
-
 
     //  MOVE ON THE Y AXIS----------------------------------------------------------------------------
     // Select y and add 10 over time for each frame we loop over.
@@ -104,20 +103,22 @@ attack() {
 }
 
 
-
-
 const player = new Sprite({
     position: {
     // Place sprite at top left hand screen to start
     x: 0,
     y: 0,
-},
-// 2d velocity to move left right up and down. player not moving by default.
-velocity: {
+    },
+    // 2d velocity to move left right up and down. player not moving by default.
+    velocity: {
     x: 0,
     y:0
-},
-color: 'orange'
+    },
+    color: 'orange',
+    offset: {
+        x: 0,
+        y: 0
+    }
 })
 
 //calback to the draw function
@@ -127,16 +128,19 @@ color: 'orange'
 const enemy = new Sprite({
     position: {
     // Place sprite at top left hand screen to start
-    x: 400,
-    y: 100,
-},
-// 2d velocity to move left right up and down. player not moving by default.
-velocity: {
-    x: 0,
-    y:0
-},
-//set enemy color
-color: 'blue'
+        x: 400,
+        y: 100
+    },
+    // 2d velocity to move left right up and down. player not moving by default.
+    velocity: {
+        x: 0,
+        y:0
+    },
+    color: 'blue',
+    offset: {
+        x: -50,
+        y: 0
+    }
 })
 
 enemy.draw()
@@ -161,6 +165,17 @@ const keys = {
     ArrowLeft: {
         pressed : false
     }
+}
+
+function checkRectCollision({ rectangle1, rectangle2}) {
+    return(
+    rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x &&
+    // find the enemies right side 
+    rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width &&
+    //  bottom of our attack box touching topside of .
+    rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y &&
+    rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height 
+    )
 }
 
 // let lastKey
@@ -196,19 +211,29 @@ if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
 
 
 // collision detection ---------------------------
-// is right side of attack box passing throught he left side of our enemy?
- if (player.attackBox.position.x + player.attackBox.width >= enemy.position.x &&
-    // find the enemies right side by taking the left side +width.
-    player.attackBox.position.x <= enemy.position.x + enemy.width &&
-    // Is the bottom of our attack box touching the player (topside of enemy).
-    player.attackBox.position.y + player.attackBox.height >= enemy.position.y &&
-    player.attackBox.position.y <= enemy.position.y + enemy.height &&
+ if (
+    checkRectCollision({
+        rectangle1: player,
+        rectangle2: enemy
+    }) &&
     player.isAttacking
-    ) {
- console.log("hit")
+ ) {
+    player.isAttacking = false
+    console.log("hit")
  }
  // immediately after detecting hit set it back to false so it only hits once.
-player.isAttacking = false}
+  if (
+    checkRectCollision({
+        rectangle1: player,
+        rectangle2: enemy
+    }) &&
+    enemy.isAttacking
+    ) {
+    // immediately after detecting hit set it back to false so it only hits once.                   
+    enemy.isAttacking = false
+    console.log("hit")
+ }
+}
 animate()
 
 
