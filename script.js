@@ -111,6 +111,9 @@ const keys = {
     d: {
         pressed : false
     },
+    w: {
+        pressed : false
+    },
 }
 
 let lastKey
@@ -153,6 +156,11 @@ window.addEventListener('keydown', (event) => {
             keys.a.pressed = true
             lastKey = 'a'
             break
+        case 'w':
+            //moving one pixel for every frame we loop over when A is pressed.
+            keys.w.pressed = true
+            lastKey = 'w'
+            break
 
     }
 console.log(event.key);
@@ -169,6 +177,10 @@ window.addEventListener('keyup', (event) => {
         case 'a':
             //STop moving whenever we stop holding down A.
             keys.a.pressed = false
+            break
+        case 'w':
+            player.velocity.y =-10
+            
             break
 
     }
