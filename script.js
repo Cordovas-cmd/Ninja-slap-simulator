@@ -45,6 +45,7 @@ constructor({position, velocity, color}) {
         height: 50,
     }
     this.color = color
+    this.isAttacking
 }
 
 //can be called whatever, but for easy reference we call draw
@@ -62,15 +63,12 @@ update() {
     this.draw()
 
 
-    //UPDATE HOW WE MOVE ON THE X-------------------------------------------------------------------------------
+    //MOVE ON THE X-------------------------------------------------------------------------------
 this.position.x += this.velocity.x
 
 
-
-
-    // UPDATE HOW WE MOVE ON THE Y AXIS----------------------------------------------------------------------------
+    //  MOVE ON THE Y AXIS----------------------------------------------------------------------------
     // Select y and add 10 over time for each frame we loop over.
-    // for position on the y axis we add our velocity.
     this.position.y += this.velocity.y
     
     // = to the bottom of a rectanlgle. If the bottom of a rectangle plus our sprites velocity is > or = to the bottom of canvas set velocity to 0. (stops it from falling past canvas)
@@ -79,8 +77,19 @@ this.position.x += this.velocity.x
         // Adds the value of gravity over time as long as it's in the air. and as long is it isn't at the bottom of the canvas.
     } else this.velocity.y += gravity
 }
+
+// Attack function
+attack() {
+    this.isAttacking = true
+    setTimeout(() => {
+        this.isAttacking = false
+    }, 100)
+}
    
 }
+
+
+
 
 const player = new Sprite({
     position: {
@@ -179,10 +188,12 @@ if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
     // Is the bottom of our attack box touching the player (topside of enemy).
     player.attackBox.position.y + player.attackBox.height >= enemy.position.y &&
     player.attackBox.position.y <= enemy.position.y + enemy.height &&
-    
+    player.isAttacking
     ) {
  console.log("hit")
- }}
+ }
+ // immediately after detecting hit set it back to false so it only hits once.
+player.isAttacking = false}
 animate()
 
 
@@ -204,7 +215,10 @@ window.addEventListener('keydown', (event) => {
             break
             case 'w':
                 player.velocity.y =-12
-                
+                break
+                // the case for spacebar.
+            case ' ':
+                player.attack()
                 break
 
             // Enemy Moves
