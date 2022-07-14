@@ -59,7 +59,7 @@ c.fillStyle = this.color
     c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
     //this is where attack box is drawn
-    // if(this.isAttacking) {
+    if(this.isAttacking) {
 
     
     c.fillStyle = 'purple'
@@ -67,8 +67,9 @@ c.fillStyle = this.color
         this.attackBox.position.x, 
         this.attackBox.position.y, 
         this.attackBox.width, 
-        this.attackBox.height)
-    // }
+        this.attackBox.height
+        )
+    }
 }
 
 // Method inside class when stuff is moving around.
@@ -224,15 +225,15 @@ if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
  // immediately after detecting hit set it back to false so it only hits once.
   if (
     checkRectCollision({
-        rectangle1: player,
-        rectangle2: enemy
+        rectangle1: enemy,
+        rectangle2: player
     }) &&
     enemy.isAttacking
     ) {
     // immediately after detecting hit set it back to false so it only hits once.                   
     enemy.isAttacking = false
-    console.log("hit")
- }
+    console.log("enemy attack successful")
+}
 }
 animate()
 
@@ -240,7 +241,6 @@ animate()
 
 // Add an event listener to the object to log any keypress.
 window.addEventListener('keydown', (event) => {
-    console.log(event.key);
     //Add a switch case statement depending on the key that's pressed.---------
     switch(event.key) {
         case 'd':
@@ -260,25 +260,30 @@ window.addEventListener('keydown', (event) => {
             case ' ':
                 player.attack()
                 break
-
-            // Enemy Moves
-        case 'ArrowRight':
-            event.preventDefault();
-            keys.ArrowRight.pressed = true
-            enemy.lastKey = 'ArrowRight'
-            break
-        case 'ArrowLeft':
-            //moving one pixel for every frame we loop over when A is pressed.
-            keys.ArrowLeft.pressed = true
-            enemy.lastKey = 'ArrowLeft'
-            break
-        case 'ArrowUp':
-            //moving one pixel for every frame we loop over when A is pressed.
-            enemy.velocity.y =-12
-            break
-
-    }
-console.log(event.key);
+                
+                // Enemy Moves
+                case 'ArrowRight':
+                    event.preventDefault();
+                    keys.ArrowRight.pressed = true
+                    enemy.lastKey = 'ArrowRight'
+                    break
+                    case 'ArrowLeft':
+                        //moving one pixel for every frame we loop over when A is pressed.
+                        keys.ArrowLeft.pressed = true
+                        enemy.lastKey = 'ArrowLeft'
+                        break
+                        case 'ArrowUp':
+                            //moving one pixel for every frame we loop over when A is pressed.
+                            enemy.velocity.y =-12
+                            break
+                            case 'ArrowDown':
+                                enemy.attack()
+                                enemy.isAttacking = true
+                                break
+                                
+                            }
+                            console.log(player.isAttacking)
+                            console.log(enemy.isAttacking)
 })
 
 // Add an event listener to the object to log any key up.
@@ -306,5 +311,4 @@ window.addEventListener('keyup', (event) => {
             keys.ArrowLeft.pressed = false
             break
     }
-console.log(event.key);
 })
