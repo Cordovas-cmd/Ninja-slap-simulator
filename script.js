@@ -115,13 +115,19 @@ const keys = {
     w: {
         pressed : false
     },
+    ArrowRight: {
+        pressed : false
+    },
+    ArrowLeft: {
+        pressed : false
+    }
 }
 
 let lastKey
 // Infinite loop that goes on and on forever until we tell it to stop.
 function animate() {
     window.requestAnimationFrame(animate)
-    // We call fillstyle here to differentiate player form background.
+    // We call fillstyle set background color
     c.fillStyle= 'black'
     // Code below= Always clear canvas for each frame we're looping over.
     c.fillRect(0, 0, canvas.width, canvas.height)
@@ -132,10 +138,20 @@ function animate() {
 /* Set velocity here so that there is no lag time or discrepincies when we 
 lift one key while pressing the other*/
 player.velocity.x = 0;
+enemy.velocity.x = 0;
+
+// Player Movement
 if(keys.a.pressed && lastKey === 'a') {
     player.velocity.x = -1
 } else if (keys.d.pressed && lastKey === 'd') {
     player.velocity.x = 1
+} 
+
+// Enemy Movement.
+if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
+    enemy.velocity.x = -1
+} else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
+    enemy.velocity.x = 1
 } 
 
  }
@@ -195,11 +211,18 @@ window.addEventListener('keyup', (event) => {
             //STop moving whenever we stop holding down A.
             keys.a.pressed = false
             break
-        case 'w':
-            player.velocity.y =-10
-            
-            break
+    }
 
+    // enemy keys.
+    switch(event.key) {
+        case 'ArrowRight':
+            //STop moving whenever we stop holding down D.
+            keys.ArrowRight.pressed = false
+            break
+        case 'ArrowLeft':
+            //STop moving whenever we stop holding down A.
+            keys.ArrowLeft.pressed = false
+            break
     }
 console.log(event.key);
 })
