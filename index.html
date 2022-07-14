@@ -1,3 +1,23 @@
-<canvas></canvas>
-
-<script src="script.js"></script>
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <!-- container -->
+    <div style="position: relative; display: inline-block;">
+    <div style="position: absolute; display: flex; width: 100%; align-items: center; padding: 20px;">
+<!-- PLayer HP -->
+    <div id="player1Hp"  style ="background-color: yellow; height:30px; width: 100%"></div>
+    <!-- Timer -->
+    <div style="background-color: red; width: 100px; height:100px; flex-shrink: 0"></div>
+    <!-- Enemy HP -->
+    <div id= "player2Hp" style ="background-color: yellow; height:30px; width: 100%"></div>
+</div>
+        <canvas></canvas>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
