@@ -40,7 +40,11 @@ constructor({position, velocity, color}) {
     this.lastKey
     // adding an attack box property.
     this.attackBox = {
-        position: this.position ,
+        // position is an object with x and y properties but they don't update automatically.
+        position: {
+x: this.position.x,
+y: this.position.y
+        },
         width: 100,
         height: 50,
     }
@@ -54,13 +58,24 @@ c.fillStyle = this.color
     c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
     //this is where attack box is drawn
+    // if(this.isAttacking) {
+
+    
     c.fillStyle = 'purple'
-    c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+    c.fillRect(
+        this.attackBox.position.x, 
+        this.attackBox.position.y, 
+        this.attackBox.width, 
+        this.attackBox.height)
+    // }
 }
 
 // Method inside class when stuff is moving around.
 update() {
     this.draw()
+    // update positions for attackbox whenever we change frames.
+    this.attackBox.position.x = this.position.x
+    this.attackBox.position.y = this.position.y
 
 
     //MOVE ON THE X-------------------------------------------------------------------------------
