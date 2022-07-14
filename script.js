@@ -35,6 +35,7 @@ constructor({position, velocity, color}) {
     // Whenever you do game dev. you always want to put a position property on almost eveyr object
     this.position = position
     this.velocity = velocity
+    this.width = 50
     this.height = 150
     this.lastKey
     // adding an attack box property.
@@ -49,7 +50,7 @@ constructor({position, velocity, color}) {
 //can be called whatever, but for easy reference we call draw
 draw() {
 c.fillStyle = this.color
-    c.fillRect(this.position.x, this.position.y, 50, this.height)
+    c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
     //this is where attack box is drawn
     c.fillStyle = 'purple'
@@ -155,21 +156,33 @@ lift one key while pressing the other*/
 player.velocity.x = 0;
 enemy.velocity.x = 0;
 
-// Player Movement
+// Player Movement-------------------------------
 if(keys.a.pressed && player.lastKey === 'a') {
     player.velocity.x = -5
 } else if (keys.d.pressed && player.lastKey === 'd') {
     player.velocity.x = 5
 } 
 
-// Enemy Movement.
+// Enemy Movement.------------------------------
 if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
     enemy.velocity.x = -5
 } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
     enemy.velocity.x = 5
 } 
 
- }
+
+// collision detection ---------------------------
+// is right side of attack box passing throught he left side of our enemy?
+ if (player.attackBox.position.x + player.attackBox.width >= enemy.position.x &&
+    // find the enemies right side by taking the left side +width.
+    player.attackBox.position.x <= enemy.position.x + enemy.width &&
+    // Is the bottom of our attack box touching the player (topside of enemy).
+    player.attackBox.position.y + player.attackBox.height >= enemy.position.y &&
+    player.attackBox.position.y <= enemy.position.y + enemy.height &&
+    
+    ) {
+ console.log("hit")
+ }}
 animate()
 
 
