@@ -35,6 +35,7 @@ constructor({position, velocity}) {
     this.position = position
     this.velocity = velocity
     this.height = 150
+    this.lastKey
 }
 
 //can be called whatever, but for easy reference we call draw
@@ -144,6 +145,7 @@ animate()
 
 // Add an event listener to the object to log any keypress.
 window.addEventListener('keydown', (event) => {
+    console.log(event.key);
     //Add a switch case statement depending on the key that's pressed.---------
     switch(event.key) {
         case 'd':
@@ -156,10 +158,25 @@ window.addEventListener('keydown', (event) => {
             keys.a.pressed = true
             lastKey = 'a'
             break
-        case 'w':
+            case 'w':
+                player.velocity.y =-10
+                
+                break
+
+            // Enemy Moves
+        case 'ArrowRight':
+            event.preventDefault();
+            keys.ArrowRight.pressed = true
+            enemy.lastKey = 'ArrowRight'
+            break
+        case 'ArrowLeft':
             //moving one pixel for every frame we loop over when A is pressed.
-            keys.w.pressed = true
-            lastKey = 'w'
+            keys.ArrowLeft.pressed = true
+            enemy.lastKey = 'ArrowLeft'
+            break
+        case 'ArrowUp':
+            //moving one pixel for every frame we loop over when A is pressed.
+            enemy.velocity.y =-10
             break
 
     }
