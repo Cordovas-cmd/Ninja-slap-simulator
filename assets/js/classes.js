@@ -90,7 +90,7 @@ class Sprite {
             this.position.y += this.velocity.y
             
             // = to the bottom of a rectanlgle. If the bottom of a rectangle plus our sprites velocity is > or = to the bottom of canvas set velocity to 0. (stops it from falling past canvas)
-            if (this.position.y + this.height +this.velocity.y >= canvas.height) {
+            if (this.position.y + this.height +this.velocity.y >= canvas.height -96) {
                 this.velocity.y = 0
                 // Adds the value of gravity over time as long as it's in the air. and as long is it isn't at the bottom of the canvas.
             } else this.velocity.y += gravity
