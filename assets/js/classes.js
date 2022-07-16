@@ -3,7 +3,7 @@ class Sprite {
     
     /* Can't pass through velocity first and can't pass position second. if we turn
     Into an object like so, it doesn't matter what order or if it was called. */
-    constructor({position, imageSrc, scale = 1 }) {
+    constructor({position, imageSrc, scale = 1, framesMax = 1 }) {
         // Whenever you do game dev. you always want to put a position property on almost every object
         this.position = position
         this.width = 50
@@ -12,22 +12,41 @@ class Sprite {
         this.image = new Image()
         this.image.src = imageSrc
         this.scale = scale
+        this.framesMax = framesMax
+        this.framesCurrent = 0
+        this.framesElapsed = 0
+        this.framesHold = 10
         
     }
     
     //can be called whatever, but for easy reference we call draw
     draw() {
     c.drawImage(
+        // cropping
         this.image, 
+        this.framesCurrent * this.image.width / this.framesMax,
+        0,
+        this.image.width / this.framesMax,
+        this.image.height,
+
         this.position.x, 
         this.position.y, 
-        this.image.width * this.scale, 
+        (this.image.width /this.framesMax) * this.scale, 
         this.image.height * this.scale)
     }
     
     // Method inside class when stuff is moving around.
     update() {
         this.draw()
+        this.framesElapsed++
+        // if it can be divided and remainder is 0
+        if(this.framesElapsed % this.framesHold === 0)
+        if(this.framesCurrent < this.framesMax -1) {
+            this.framesCurrent++
+        } else {
+            this.framesCurrent = 0
+        }
+
       
     }
     }
