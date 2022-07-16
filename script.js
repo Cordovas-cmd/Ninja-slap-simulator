@@ -180,6 +180,24 @@ function checkRectCollision({ rectangle1, rectangle2}) {
     )
 }
 
+
+let timer = 10
+
+function decreaseTimer() {
+    setTimeout(decreaseTimer, 1000)
+    if(timer > 0) {
+        timer--
+        document.querySelector('#timer').innerHTML = timer
+    }
+    if(timer === 0) {
+        
+        if (player.health === enemy.health) {
+            document.querySelector('#displayText').innerHTML = 'Tie!!!'
+            document.querySelector('#displayText').style.display='flex'
+        }
+}
+}
+decreaseTimer();
 // let lastKey
 // Infinite loop that goes on and on forever until we tell it to stop.
 function animate() {
