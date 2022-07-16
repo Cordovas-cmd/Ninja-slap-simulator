@@ -34,6 +34,16 @@ const background = new Sprite({
     imageSrc: './assets/image/background.png'
 })
 
+// Shop sprite
+const shop = new Sprite({
+    position: {
+        x: 600,
+        y: 128
+    },
+    imageSrc: './assets/image/shop.png',
+    scale: 2.75
+})
+
 
 
 // using OOP we create each player.
@@ -112,6 +122,7 @@ function animate() {
     // Code below= Always clear canvas for each frame we're looping over.
     c.fillRect(0, 0, canvas.width, canvas.height)
     background.update()
+    shop.update()
     // update() is calling draw() so we don't need to anymore.
     player.update()
     enemy.update()

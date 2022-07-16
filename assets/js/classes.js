@@ -3,7 +3,7 @@ class Sprite {
     
     /* Can't pass through velocity first and can't pass position second. if we turn
     Into an object like so, it doesn't matter what order or if it was called. */
-    constructor({position, imageSrc }) {
+    constructor({position, imageSrc, scale = 1 }) {
         // Whenever you do game dev. you always want to put a position property on almost every object
         this.position = position
         this.width = 50
@@ -11,12 +11,18 @@ class Sprite {
         // creates an html img in JS
         this.image = new Image()
         this.image.src = imageSrc
+        this.scale = scale
         
     }
     
     //can be called whatever, but for easy reference we call draw
     draw() {
-    c.drawImage(this.image, this.position.x, this.position.y)
+    c.drawImage(
+        this.image, 
+        this.position.x, 
+        this.position.y, 
+        this.image.width * this.scale, 
+        this.image.height * this.scale)
     }
     
     // Method inside class when stuff is moving around.
