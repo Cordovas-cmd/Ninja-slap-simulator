@@ -172,14 +172,22 @@ class Sprite {
         switchSprite(sprite) {
             switch (sprite) {
                 case 'idle':
-                    if(this.image !== this.sprites.idle.image)
-                    this.image= this.sprites.idle.image
+                    if(this.image !== this.sprites.idle.image) {
+                        this.image= this.sprites.idle.image
+                        this.framesMax = this.sprites.idle.framesMax
+                    }
                 break;
                 case 'run':
-                    if(this.image !== this.sprites.run.image)
-                    this.image= this.sprites.run.image
+                    if(this.image !== this.sprites.run.image) {
+                        this.image= this.sprites.run.image
+                        this.framesMax = this.sprites.run.framesMax
+                    }
                 break;
-                case 'jump':
+                case 'jump': 
+                if (this.image !== this.sprite.jump.image) {
+                    this.image = this.sprites.jump.image
+                    this.framesMax = this.sprites.jump.framesMax
+                }
                 break;
             }
         }
