@@ -15,7 +15,7 @@ class Sprite {
         this.framesMax = framesMax
         this.framesCurrent = 0
         this.framesElapsed = 0
-        this.framesHold = 10
+        this.framesHold = 20
         
     }
     
@@ -53,14 +53,18 @@ class Sprite {
 
     
     
-    class Fighter {
+    class Fighter extends Sprite{
         // Need a constructor method ( a function within a class)
         
         /* Can't pass through velocity first and can't pass position second. if we turn
         Into an object like so, it doesn't matter what order or if it was called. */
-        constructor({position, velocity, color, offset}) {
+        constructor({position, velocity, color, offset, imageSrc, scale = 1, framesMax = 1}) {
+            // calls constructor of parent.
+            super({
+                position, imageSrc, scale, framesMax
+            })
             // Whenever you do game dev. you always want to put a position property on almost every object
-            this.position = position
+            
             this.velocity = velocity
             this.width = 50
             this.height = 150
@@ -79,26 +83,29 @@ class Sprite {
             this.color = color
             this.isAttacking
             this.health = 100
+            this.framesCurrent = 0
+            this.framesElapsed = 0
+            this.framesHold = 20
         }
         
         //can be called whatever, but for easy reference we call draw
-        draw() {
-        c.fillStyle = this.color
-            c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        // draw() {
+        // c.fillStyle = this.color
+        //     c.fillRect(this.position.x, this.position.y, this.width, this.height)
         
-            //this is where attack box is drawn
-            if(this.isAttacking) {
+        //     //this is where attack box is drawn
+        //     if(this.isAttacking) {
         
             
-            c.fillStyle = 'purple'
-            c.fillRect(
-                this.attackBox.position.x, 
-                this.attackBox.position.y, 
-                this.attackBox.width, 
-                this.attackBox.height
-                )
-            }
-        }
+        //     c.fillStyle = 'purple'
+        //     c.fillRect(
+        //         this.attackBox.position.x, 
+        //         this.attackBox.position.y, 
+        //         this.attackBox.width, 
+        //         this.attackBox.height
+        //         )
+        //     }
+        // }
         
         // Method inside class when stuff is moving around.
         update() {
