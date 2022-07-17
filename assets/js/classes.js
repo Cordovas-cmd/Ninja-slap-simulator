@@ -33,22 +33,25 @@ class Sprite {
         this.position.x - this.offset.x,
         this.position.y - this.offset.y, 
         (this.image.width /this.framesMax) * this.scale, 
-        this.image.height * this.scale)
+        this.image.height * this.scale
+        )
     }
     
-    // Method inside class when stuff is moving around.
-    update() {
-        this.draw()
+    animateFrames() {
         this.framesElapsed++
         // if it can be divided and remainder is 0
-        if(this.framesElapsed % this.framesHold === 0)
+        if(this.framesElapsed % this.framesHold === 0) {
         if(this.framesCurrent < this.framesMax -1) {
             this.framesCurrent++
         } else {
             this.framesCurrent = 0
         }
-
-      
+    }
+    }
+    // Method inside class when stuff is moving around.
+    update() {
+        this.draw()
+        this.animateFrames()
     }
     }
 
@@ -111,6 +114,7 @@ class Sprite {
         // Method inside class when stuff is moving around.
         update() {
             this.draw()
+            this.animateFrames()
             // update positions for attackbox whenever we change frames.
             this.attackBox.position.x = this.position.x + this.attackBox.offset.x
             this.attackBox.position.y = this.position.y
