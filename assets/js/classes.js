@@ -176,6 +176,8 @@ class Sprite {
                     this.image= this.sprites.idle.image
                 break;
                 case 'run':
+                    if(this.image !== this.sprites.run.image)
+                    this.image= this.sprites.run.image
                 break;
                 case 'jump':
                 break;

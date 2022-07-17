@@ -161,9 +161,9 @@ enemy.velocity.x = 0;
 player.switchSprite('idle')
 if(keys.a.pressed && player.lastKey === 'a') {
     player.velocity.x = -5
-    player.image= player.sprites.run.image
+   player.switchSprite('run')
 } else if (keys.d.pressed && player.lastKey === 'd') {
-    player.image= player.sprites.run.image
+    player.switchSprite('run')
     player.velocity.x = 5
 } 
 if (player.velocity.y < 0) {
