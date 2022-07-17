@@ -3,7 +3,14 @@ class Sprite {
     
     /* Can't pass through velocity first and can't pass position second. if we turn
     Into an object like so, it doesn't matter what order or if it was called. */
-    constructor({position, imageSrc, scale = 1, framesMax = 1, offset ={x:0, y:0} }) {
+    constructor({
+        position, 
+        imageSrc, 
+        scale = 1, 
+        framesMax = 1, 
+        offset ={x:0, y:0} 
+    }) 
+    {
         // Whenever you do game dev. you always want to put a position property on almost every object
         this.position = position
         this.width = 50
@@ -62,10 +69,24 @@ class Sprite {
         
         /* Can't pass through velocity first and can't pass position second. if we turn
         Into an object like so, it doesn't matter what order or if it was called. */
-        constructor({position, velocity, color,imageSrc, scale = 1, framesMax = 1, offset ={x:0, y:0} }) {
+        constructor({
+            position, 
+            velocity, 
+            color,
+            imageSrc, 
+            scale = 1, 
+            framesMax = 1, 
+            offset ={x:0, y:0},
+            sprites 
+        })
+             {
             // calls constructor of parent.
             super({
-                position, imageSrc, scale, framesMax, offset
+                position,
+                imageSrc, 
+                scale, 
+                framesMax, 
+                offset
             })
             // Whenever you do game dev. you always want to put a position property on almost every object
             
@@ -76,9 +97,9 @@ class Sprite {
             // adding an attack box property.
             this.attackBox = {
                 // position is an object with x and y properties but they don't update automatically.
-            position: {
-                x: this.position.x,
-                y: this.position.y
+                position: {
+                    x: this.position.x,
+                    y: this.position.y
                 },
                 offset,
                 width: 100,
@@ -90,6 +111,13 @@ class Sprite {
             this.framesCurrent = 0
             this.framesElapsed = 0
             this.framesHold = 20
+            this.sprites = sprites
+
+            for (const sprite in this.sprites ) {
+                sprites[sprite].image = new Image()
+                sprites[sprite].image.src = sprites[sprite].imageSrc 
+            }
+            console.log(this.sprites);
         }
         
         //can be called whatever, but for easy reference we call draw
