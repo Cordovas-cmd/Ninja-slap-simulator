@@ -65,7 +65,12 @@ const player = new Fighter({
         y: 0
     },
     imageSrc: './assets/image/samuraiMack/Idle.png',
-    framesMax: 8
+    framesMax: 8,
+    scale: 2.5,
+    offset: {
+    x: 215,
+    y: 156
+    }
 })
 
 //calback to the draw function

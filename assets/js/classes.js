@@ -3,7 +3,7 @@ class Sprite {
     
     /* Can't pass through velocity first and can't pass position second. if we turn
     Into an object like so, it doesn't matter what order or if it was called. */
-    constructor({position, imageSrc, scale = 1, framesMax = 1 }) {
+    constructor({position, imageSrc, scale = 1, framesMax = 1, offset ={x:0, y:0} }) {
         // Whenever you do game dev. you always want to put a position property on almost every object
         this.position = position
         this.width = 50
@@ -16,6 +16,7 @@ class Sprite {
         this.framesCurrent = 0
         this.framesElapsed = 0
         this.framesHold = 20
+        this.offset = offset
         
     }
     
@@ -29,8 +30,8 @@ class Sprite {
         this.image.width / this.framesMax,
         this.image.height,
 
-        this.position.x, 
-        this.position.y, 
+        this.position.x - this.offset.x,
+        this.position.y - this.offset.y, 
         (this.image.width /this.framesMax) * this.scale, 
         this.image.height * this.scale)
     }
@@ -58,10 +59,10 @@ class Sprite {
         
         /* Can't pass through velocity first and can't pass position second. if we turn
         Into an object like so, it doesn't matter what order or if it was called. */
-        constructor({position, velocity, color, offset, imageSrc, scale = 1, framesMax = 1}) {
+        constructor({position, velocity, color,imageSrc, scale = 1, framesMax = 1, offset ={x:0, y:0} }) {
             // calls constructor of parent.
             super({
-                position, imageSrc, scale, framesMax
+                position, imageSrc, scale, framesMax, offset
             })
             // Whenever you do game dev. you always want to put a position property on almost every object
             
