@@ -249,14 +249,20 @@ if (enemy.velocity.y < 0) {
         rectangle1: player,
         rectangle2: enemy
     }) &&
-    player.isAttacking
+    player.isAttacking &&
+    player.framesCurrent === 4
  ) {
     player.isAttacking = false
     enemy.health -= 20
     document.querySelector('#player2Hp').style.width = enemy.health + '%'
-    console.log("hit")
  }
- // immediately after detecting hit set it back to false so it only hits once.
+ 
+ // If player misses
+ if (player.isAttacking && player.framesCurrent === 4 ) {
+    player.isAttacking = false
+ }
+
+
   if (
     checkRectCollision({
         rectangle1: enemy,
