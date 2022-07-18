@@ -278,9 +278,9 @@ if (enemy.velocity.y < 0) {
     }) &&
     enemy.isAttacking && enemy.framesCurrent === 2
     ) {
+        player.takeHit()
     // immediately after detecting hit set it back to false so it only hits once.                   
     enemy.isAttacking = false
-    player.health -= 20
     document.querySelector('#player1Hp').style.width = player.health + '%'
   }
 
