@@ -116,8 +116,34 @@ const enemy = new Fighter({
         y: 0
     },
     imageSrc: './assets/image/kenji/Idle.png',
-    framesMax: 4
-
+    framesMax: 4,
+    scale: 2.5,
+    offset: {
+    x: 215,
+    y: 167
+    },
+    sprites: {
+        idle: {
+            imageSrc: './assets/image/kenji/Idle.png',
+            framesMax: 4
+        },
+        run: {
+            imageSrc: './assets/image/kenji/Run.png',
+            framesMax: 8
+        },
+        jump: {
+            imageSrc: './assets/image/kenji/Jump.png',
+            framesMax: 2
+        },
+        fall: {
+            imageSrc: './assets/image/kenji/Fall.png',
+            framesMax: 2
+        },
+        attack1: {
+            imageSrc: './assets/image/kenji/Attack1.png',
+            framesMax: 4
+        }
+    }
 })
 
 enemy.draw()
@@ -162,32 +188,43 @@ function animate() {
 
 /* Set velocity here so that there is no lag time or discrepincies when we 
 lift one key while pressing the other*/
-player.velocity.x = 0;
-enemy.velocity.x = 0;
+ player.velocity.x = 0;
+ enemy.velocity.x = 0;
 
 // Player Movement-------------------------------
-if(keys.a.pressed && player.lastKey === 'a') {
-    player.velocity.x = -5
+ if (keys.a.pressed && player.lastKey === 'a') {
+   player.velocity.x = -5
    player.switchSprite('run')
-} else if (keys.d.pressed && player.lastKey === 'd') {
-    player.velocity.x = 5
-    player.switchSprite('run')
-} else {
-    player.switchSprite('idle')
-}
+ } else if (keys.d.pressed && player.lastKey === 'd') {
+   player.velocity.x = 5
+   player.switchSprite('run')
+ } else {
+     player.switchSprite('idle')
+ }
 // jumping
-if (player.velocity.y < 0) {
+ if (player.velocity.y < 0) {
    player.switchSprite('jump')
-} else if (player.velocity.y > 0) {
-    player.switchSprite('fall')
-}
+ } else if (player.velocity.y > 0) {
+   player.switchSprite('fall')
+ }
 
 // Enemy Movement.------------------------------
-if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
-    enemy.velocity.x = -5
+if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
+  enemy.velocity.x = -5
+  enemy.switchSprite('run')
 } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
-    enemy.velocity.x = 5
-} 
+  enemy.velocity.x = 5
+  enemy.switchSprite('run')
+} else {
+  enemy.switchSprite('idle')
+}
+
+// jumping
+if (enemy.velocity.y < 0) {
+    enemy.switchSprite('jump')
+  } else if (enemy.velocity.y > 0) {
+    enemy.switchSprite('fall')
+  }
 
 
 // collision detection ---------------------------
@@ -269,7 +306,7 @@ window.addEventListener('keydown', (event) => {
 
             case 'ArrowDown':
                 enemy.attack()
-                enemy.isAttacking = true
+                // enemy.isAttacking = true
                 break
                                 
             }
