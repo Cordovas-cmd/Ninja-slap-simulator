@@ -130,8 +130,15 @@ class Sprite {
             // Attack Boxes (positioning, update )
             this.attackBox.position.x = this.position.x + this.attackBox.offset.x
             this.attackBox.position.y = this.position.y + this.attackBox.offset.y
-        
-            c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+
+            
+            //Draw Attack Box (for testing purposes)
+            // c.fillRect(
+            //   this.attackBox.position.x, 
+            //   this.attackBox.position.y, 
+            //   this.attackBox.width, 
+            //   this.attackBox.height
+            // )
             //MOVE ON THE X-------------------------------------------------------------------------------
             this.position.x += this.velocity.x
         
