@@ -22,7 +22,7 @@ canvas.height = 576
 c.fillRect(0, 0, canvas.width, canvas.height)
 
 
-// CREATE GRAVITY
+// Set Gravity
 const gravity = 0.2
 
 // Background Sprite
@@ -87,6 +87,10 @@ const player = new Fighter({
         fall: {
             imageSrc: './assets/image/samuraiMack/Fall.png',
             framesMax: 2
+        },
+        attack1: {
+            imageSrc: './assets/image/samuraiMack/Attack1.png',
+            framesMax: 6
         }
     }
 })
@@ -240,32 +244,35 @@ window.addEventListener('keydown', (event) => {
             case 'w':
                 player.velocity.y =-12
                 break
-                // the case for spacebar.
+            // the case for spacebar.
             case ' ':
                 player.attack()
                 break
                 
-                // Enemy Moves
-                case 'ArrowRight':
-                    event.preventDefault();
-                    keys.ArrowRight.pressed = true
-                    enemy.lastKey = 'ArrowRight'
-                    break
-                    case 'ArrowLeft':
-                        //moving one pixel for every frame we loop over when A is pressed.
-                        keys.ArrowLeft.pressed = true
-                        enemy.lastKey = 'ArrowLeft'
-                        break
-                        case 'ArrowUp':
-                            //moving one pixel for every frame we loop over when A is pressed.
-                            enemy.velocity.y =-12
-                            break
-                            case 'ArrowDown':
-                                enemy.attack()
-                                enemy.isAttacking = true
-                                break
+             // Enemy Moves
+            case 'ArrowRight':
+                event.preventDefault();
+                keys.ArrowRight.pressed = true
+                enemy.lastKey = 'ArrowRight'
+                break
+
+            case 'ArrowLeft':
+                //moving one pixel for every frame we loop over when A is pressed.
+                keys.ArrowLeft.pressed = true
+                enemy.lastKey = 'ArrowLeft'
+                break
+
+            case 'ArrowUp':
+                //moving one pixel for every frame we loop over when A is pressed.
+                enemy.velocity.y =-12
+                break
+
+            case 'ArrowDown':
+                enemy.attack()
+                enemy.isAttacking = true
+                break
                                 
-                            }
+            }
                             console.log(player.isAttacking)
                             console.log(enemy.isAttacking)
 })

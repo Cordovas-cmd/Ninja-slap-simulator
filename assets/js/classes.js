@@ -157,12 +157,16 @@ class Sprite {
             // = to the bottom of a rectanlgle. If the bottom of a rectangle plus our sprites velocity is > or = to the bottom of canvas set velocity to 0. (stops it from falling past canvas)
             if (this.position.y + this.height +this.velocity.y >= canvas.height -96) {
                 this.velocity.y = 0
+                // stops the idle/jump flash.
+                this.position.y = 330
                 // Adds the value of gravity over time as long as it's in the air. and as long is it isn't at the bottom of the canvas.
             } else this.velocity.y += gravity
+            
         }
         
         // Attack function
         attack() {
+            this.switchSprite('attack1')
             this.isAttacking = true
             setTimeout(() => {
                 this.isAttacking = false
@@ -170,36 +174,52 @@ class Sprite {
         }
 
         switchSprite(sprite) {
+            if (
+              this.image === this.sprites.attack1.image && 
+              this.framesCurrent < this.sprites.attack1.framesMax -1
+            )
+              return
+              
             switch (sprite) {
                 case 'idle':
-                    if(this.image !== this.sprites.idle.image) {
-                        this.image= this.sprites.idle.image
-                        this.framesMax = this.sprites.idle.framesMax
-                        this.framesCurrent = 0
+                    if (this.image !== this.sprites.idle.image) {
+                      this.image= this.sprites.idle.image
+                      this.framesMax = this.sprites.idle.framesMax
+                      this.framesCurrent = 0
                     }
-                break;
+                    break;
+
                 case 'run':
-                    if(this.image !== this.sprites.run.image) {
-                        this.image= this.sprites.run.image
-                        this.framesMax = this.sprites.run.framesMax
-                        this.framesCurrent = 0
+                    if (this.image !== this.sprites.run.image) {
+                      this.image= this.sprites.run.image
+                      this.framesMax = this.sprites.run.framesMax
+                      this.framesCurrent = 0
                     }
-                break;
+                    break;
+
                 case 'jump': 
-                if (this.image !== this.sprites.jump.image) {
-                    this.image = this.sprites.jump.image
-                    this.framesMax = this.sprites.jump.framesMax
-                    this.framesCurrent = 0
-                }
-                break;
+                    if (this.image !== this.sprites.jump.image) {
+                      this.image = this.sprites.jump.image
+                      this.framesMax = this.sprites.jump.framesMax
+                      this.framesCurrent = 0
+                    }
+                    break;
+
                 case 'fall': 
-                if (this.image !== this.sprites.fall.image) {
-                    this.image = this.sprites.fall.image
-                    this.framesMax = this.sprites.fall.framesMax
-                    this.framesCurrent = 0
-                }
-                break;
+                    if (this.image !== this.sprites.fall.image) {
+                      this.image = this.sprites.fall.image
+                      this.framesMax = this.sprites.fall.framesMax
+                      this.framesCurrent = 0
+                    }
+                    break;
+
+                case 'attack1': 
+                    if (this.image !== this.sprites.attack1.image) {
+                      this.image = this.sprites.attack1.image
+                      this.framesMax = this.sprites.attack1.framesMax
+                      this.framesCurrent = 0
+                    }
+                    break;
             }
-        }
-           
+          }  
         }
