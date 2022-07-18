@@ -91,6 +91,10 @@ const player = new Fighter({
         attack1: {
             imageSrc: './assets/image/samuraiMack/Attack1.png',
             framesMax: 6
+        },
+        takeHit: {
+            imageSrc: './assets/image/samuraiMack/Take Hit - white silhouette.png',
+            framesMax: 4
         }
     },
     attackBox: {
@@ -150,6 +154,10 @@ const enemy = new Fighter({
         attack1: {
             imageSrc: './assets/image/kenji/Attack1.png',
             framesMax: 4
+        },
+        takeHit: {
+            imageSrc: './assets/image/kenji/Take hit.png',
+            framesMax: 3
         }
     },
     attackBox: {
@@ -165,7 +173,7 @@ const enemy = new Fighter({
 enemy.draw()
 
 
-console.log(player)
+
 
 
 const keys = {
@@ -243,7 +251,7 @@ if (enemy.velocity.y < 0) {
   }
 
 
-// collision detection ---------------------------
+// Detect for Collisions and Enemy gets Hit ---------------------------
   if (
     checkRectCollision({
         rectangle1: player,
@@ -252,8 +260,8 @@ if (enemy.velocity.y < 0) {
     player.isAttacking &&
     player.framesCurrent === 4
   ) {
+    enemy.takeHit()
     player.isAttacking = false
-    enemy.health -= 20
     document.querySelector('#player2Hp').style.width = enemy.health + '%'
   }
  
