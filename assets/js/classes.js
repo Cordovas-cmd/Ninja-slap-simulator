@@ -113,6 +113,7 @@ class Sprite {
             this.framesElapsed = 0
             this.framesHold = 20
             this.sprites = sprites
+            this.dead = false
 
             for (const sprite in this.sprites ) {
                 sprites[sprite].image = new Image()
@@ -125,7 +126,7 @@ class Sprite {
         // Method inside class when stuff is moving around.
         update() {
             this.draw()
-            this.animateFrames()
+            if (!this.dead) this.animateFrames()
 
             // Attack Boxes (positioning, update )
             this.attackBox.position.x = this.position.x + this.attackBox.offset.x
@@ -166,11 +167,19 @@ class Sprite {
 
         // Take Hit Function
         takeHit() {
-            this.switchSprite('takeHit')
             this.health -= 20
+
+            if (this.health <= 0) {
+              this.switchSprite('death')  
+            } else this.switchSprite('takeHit')
         }
 
         switchSprite(sprite) {
+
+            if (this.image === this.sprites.death.image)  {
+                if (this.framesCurrent === this.sprites.death.framesMax -1)
+                this.dead = true
+                return}
           // Overriding all other animations with the attack animation  
             if (
               this.image === this.sprites.attack1.image && 
@@ -230,6 +239,14 @@ class Sprite {
                     if (this.image !== this.sprites.takeHit.image) {
                       this.image = this.sprites.takeHit.image
                       this.framesMax = this.sprites.takeHit.framesMax
+                      this.framesCurrent = 0
+                    }
+                    break;
+
+                case 'death': 
+                    if (this.image !== this.sprites.death.image) {
+                      this.image = this.sprites.death.image
+                      this.framesMax = this.sprites.death.framesMax
                       this.framesCurrent = 0
                     }
                     break;
