@@ -308,6 +308,8 @@ animate()
 
 // Add an event listener to the object to log any keypress.
 window.addEventListener('keydown', (event) => {
+
+    if(!player.dead) {
     //Add a switch case statement depending on the key that's pressed.---------
     switch(event.key) {
         case 'd':
@@ -320,40 +322,41 @@ window.addEventListener('keydown', (event) => {
             keys.a.pressed = true
             player.lastKey = 'a'
             break
-            case 'w':
-                player.velocity.y =-12
-                break
+        case 'w':
+            player.velocity.y =-12
+            break
             // the case for spacebar.
-            case ' ':
-                player.attack()
-                break
-                
-             // Enemy Moves
-            case 'ArrowRight':
-                event.preventDefault();
-                keys.ArrowRight.pressed = true
-                enemy.lastKey = 'ArrowRight'
-                break
+        case ' ':
+            player.attack()
+            break
+      }          
+    }
+ if( !enemy.dead) {
+    switch(event.key) {
+         // Enemy Moves
+        case 'ArrowRight':
+            event.preventDefault();
+            keys.ArrowRight.pressed = true
+            enemy.lastKey = 'ArrowRight'
+            break
 
-            case 'ArrowLeft':
-                //moving one pixel for every frame we loop over when A is pressed.
-                keys.ArrowLeft.pressed = true
-                enemy.lastKey = 'ArrowLeft'
-                break
+        case 'ArrowLeft':
+            //moving one pixel for every frame we loop over when A is pressed.
+            keys.ArrowLeft.pressed = true
+            enemy.lastKey = 'ArrowLeft'
+            break
 
-            case 'ArrowUp':
-                //moving one pixel for every frame we loop over when A is pressed.
-                enemy.velocity.y =-12
-                break
+        case 'ArrowUp':
+            //moving one pixel for every frame we loop over when A is pressed.
+            enemy.velocity.y =-12
+            break
 
-            case 'ArrowDown':
-                enemy.attack()
-                // enemy.isAttacking = true
-                break
-                                
-            }
-                            console.log(player.isAttacking)
-                            console.log(enemy.isAttacking)
+        case 'ArrowDown':
+            enemy.attack()
+            // enemy.isAttacking = true
+             break                              
+    }
+ }  
 })
 
 // Add an event listener to the object to log any key up.
