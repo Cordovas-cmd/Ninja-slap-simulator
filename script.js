@@ -385,3 +385,9 @@ window.addEventListener('keyup', (event) => {
             break
     }
 })
+
+// Would like to add custom assets and sprite animations
+
+// Would like to implement a menu with character selection
+
+// Music and a few levels would be ideal as well.
