@@ -225,10 +225,10 @@ lift one key while pressing the other*/
 
 // Player Movement-------------------------------
  if (keys.a.pressed && player.lastKey === 'a') {
-   player.velocity.x = -5
+   player.velocity.x = -10
    player.switchSprite('run')
  } else if (keys.d.pressed && player.lastKey === 'd') {
-   player.velocity.x = 5
+   player.velocity.x = 10
    player.switchSprite('run')
  } else {
      player.switchSprite('idle')
@@ -242,10 +242,10 @@ lift one key while pressing the other*/
 
 // Enemy Movement.------------------------------
 if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
-  enemy.velocity.x = -5
+  enemy.velocity.x = -10
   enemy.switchSprite('run')
 } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
-  enemy.velocity.x = 5
+  enemy.velocity.x = 10
   enemy.switchSprite('run')
 } else {
   enemy.switchSprite('idle')
