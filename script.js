@@ -202,7 +202,8 @@ const keys = {
     }
 }
 
-
+// want new skins.
+// want diff levels
 decreaseTimer();
 // let lastKey
 // Infinite loop that goes on and on forever until we tell it to stop.
